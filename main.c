@@ -12,6 +12,7 @@ interfaceEntry interfaces[] = {
     {2, "eth1"},
     {3, "wlp4s0"}
 };
+
 #define INTERFACE_TABLE_SIZE (sizeof(interfaces) / sizeof(interfaceEntry))
 
 int handle_myNetInterfaceTable(netsnmp_mib_handler *handler,
