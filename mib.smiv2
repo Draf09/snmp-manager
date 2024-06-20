@@ -1,0 +1,31 @@
+MY-MIB DEFINITIONS ::= BEGIN
+IMPORTS
+    MODULE-IDENTITY, OBJECT-TYPE, Integer32, Counter32 FROM SNMPv2-SMI;
+
+myMIB MODULE-IDENTITY
+    LAST-UPDATED "202406200000Z"
+    ORGANIZATION "My Organization"
+    CONTACT-INFO "info@myorganization.com"
+    DESCRIPTION "MIB for managing network interfaces."
+    REVISION "202406200000Z"
+    DESCRIPTION "Initial version."
+    ::= { enterprises 99999 }
+
+myNetInterfaceTable OBJECT-TYPE
+    SYNTAX SEQUENCE OF MyNetInterfaceEntry
+    MAX-ACCESS not-accessible
+    STATUS current
+    DESCRIPTION "A table of network interface entries."
+    ::= { myMIB 1 }
+
+MyNetInterfaceEntry ::= SEQUENCE {
+    myNetInterfaceIndex Integer32,
+    myNetInterfaceName OCTET STRING,
+    myNetInterfaceInOctets Counter32,
+    myNetInterfaceOutOctets Counter32,
+    myNetInterfaceAdminStatus Integer32,
+    myNetInterfaceOperStatus Integer32
+}
+END
+
+
