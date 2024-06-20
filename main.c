@@ -12,7 +12,6 @@ interfaceEntry interfaces[] = {
     {2, "eth1"},
     {3, "wlp4s0"}
 };
-
 #define INTERFACE_TABLE_SIZE (sizeof(interfaces) / sizeof(interfaceEntry))
 
 int handle_myNetInterfaceTable(netsnmp_mib_handler *handler,
@@ -31,6 +30,38 @@ int handle_myNetInterfaceTable(netsnmp_mib_handler *handler,
             }
         }
         // Implement other modes like SET and GETNEXT
+        if (reqinfo->mode == MODE_SET_RESERVE1) {
+            if (table_index >= INTERFACE_TABLE_SIZE) {
+                netsnmp_set_request_error(reqinfo, request, SNMP_NOSUCHINSTANCE);
+            }
+        }
+        if (reqinfo->mode == MODE_SET_ACTION) {
+            if (table_index >= INTERFACE_TABLE_SIZE) {
+                netsnmp_set_request_error(reqinfo, request, SNMP_NOSUCHINSTANCE);
+            }
+        }
+        if (reqinfo->mode == MODE_SET_COMMIT) {
+            if (table_index >= INTERFACE_TABLE_SIZE) {
+                netsnmp_set_request_error(reqinfo, request, SNMP_NOSUCHINSTANCE);
+            }
+        }
+        if (reqinfo->mode == MODE_SET_FREE) {
+            if (table_index >= INTERFACE_TABLE_SIZE) {
+                netsnmp_set_request_error(reqinfo, request, SNMP_NOSUCHINSTANCE);
+            }
+        }
+
+        // getnext 
+        if (reqinfo->mode == MODE_GETNEXT) {
+            if (table_index < INTERFACE_TABLE_SIZE) {
+                snmp_set_var_typed_value(request->requestvb, ASN_OCTET_STR,
+                                         interfaces[table_index].interfaceName,
+                                         strlen(interfaces[table_index].interfaceName));
+            } else {
+                netsnmp_set_request_error(reqinfo, request, SNMP_ENDOFMIBVIEW);
+            }
+        }
+        
     }
     return SNMP_ERR_NOERROR;
 }
