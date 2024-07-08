@@ -30,7 +30,6 @@ int handle_myNetInterfaceTable(netsnmp_mib_handler *handler,
             }
         }
 
-        // Implement other modes like SET and GETNEXT
        if (reqinfo->mode == MODE_SET_RESERVE1) {
             // Check if the new value is valid (e.g., check length for strings)
             if (table_index < INTERFACE_TABLE_SIZE && request->requestvb->type == ASN_OCTET_STR &&
@@ -55,7 +54,8 @@ int handle_myNetInterfaceTable(netsnmp_mib_handler *handler,
                 netsnmp_set_request_error(reqinfo, request, SNMP_NOSUCHINSTANCE);
             }
         }
-        
+
+
         if (reqinfo->mode == MODE_SET_FREE) {
             if (table_index >= INTERFACE_TABLE_SIZE) {
                 netsnmp_set_request_error(reqinfo, request, SNMP_NOSUCHINSTANCE);
@@ -64,17 +64,17 @@ int handle_myNetInterfaceTable(netsnmp_mib_handler *handler,
 
         // getnext 
         if (reqinfo->mode == MODE_GETNEXT) {
-            if (table_index < INTERFACE_TABLE_SIZE - 1) {
-                table_index++;
+            if (table_index < INTERFACE_TABLE_SIZE) {
                 snmp_set_var_typed_value(request->requestvb, ASN_OCTET_STR,
-                                        interfaces[table_index].interfaceName,
-                                        strlen(interfaces[table_index].interfaceName));
-                oid new_oid[] = {1,3,6,1,4,1,9999,2,table_index + 1};
-                snmp_set_var_objid(request->requestvb, new_oid, OID_LENGTH(new_oid));
+                                         interfaces[table_index].interfaceName,
+                                         strlen(interfaces[table_index].interfaceName));
+
             } else {
                 netsnmp_set_request_error(reqinfo, request, SNMP_ENDOFMIBVIEW);
             }
         }
+
+
     }
     return SNMP_ERR_NOERROR;
 }

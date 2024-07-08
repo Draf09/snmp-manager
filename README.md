@@ -27,6 +27,8 @@ arquivo(s) da MIB do elemento gerenciado
 
 artigo (em pdf) descrevendo o elemento gerenciado, a descrição dos objetos da MIB, detalhes de implementação do agente e exemplos de funcionamento do agente, através da execução de comandos SNMP
 
+
+Fim descrição
 -------------------------------------------------
 
 O formato de arquivo para MIBs usando SMIv2 (Structure of Management Information Version 2) é definido pelo padrão ASN.1 (Abstract Syntax Notation One). Este padrão é utilizado para descrever a estrutura de dados de forma precisa e independente de máquina, o que é essencial para a interoperabilidade entre diferentes sistemas e dispositivos em uma rede gerenciada via SNMP (Simple Network Management Protocol).
