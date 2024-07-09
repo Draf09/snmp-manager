@@ -48,3 +48,4 @@ Install directory: /var/lib/snmp/mibs
 adduser: Warning: The home directory `/var/lib/snmp' does not belong to the user you are currently creating.
 Created symlink /etc/systemd/system/multi-user.target.wants/snmpd.service → /lib/systemd/system/snmpd.service.
 Setting up snmp-mibs-downloader (1.5) ...
+
